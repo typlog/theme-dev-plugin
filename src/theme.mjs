@@ -6,6 +6,7 @@ import { resolveTemplates, updateTemplatesContext } from "./templates.mjs"
  * @typedef ThemeData
  * @prop {string} name
  * @prop {string} version
+ * @prop {string} repo
  * @prop {Record<string, string>} templates
  * @prop {Record<string, string>} [messages]
  * @prop {Record<string, any>} [variables]

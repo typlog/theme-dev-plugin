@@ -1,0 +1,11 @@
+{
+  "name": "a",
+  "version": "1.0.0",
+  "repo": "a/b",
+  "context": {
+    "_url": "a"
+  },
+  "templates": {
+    "a.j2": "a"
+  }
+}
