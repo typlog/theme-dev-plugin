@@ -4,10 +4,16 @@ import { readdir, readFile, lstat } from "fs/promises"
 const reInclude = new RegExp('{%\\s+include\\s+("|\')(\\./\\S+?)\\1\\s+%}', 'g')
 
 
-export async function resolveTemplates (folder: string): Promise<Record<string, string>> {
-  const _cached: Record<string, string> = {}
+/**
+ *
+ * @param {string} folder
+ * @returns {Promise<Record<string, string>>}
+ */
+export async function resolveTemplates (folder) {
+  /** @type {Record<string, string>} */
+  const _cached = {}
 
-  const loadTemplates = async (baseDir: string) => {
+  const loadTemplates = async (baseDir) => {
     const names = await readdir(baseDir)
 
     await Promise.all(names.map(async (name) => {
@@ -22,7 +28,7 @@ export async function resolveTemplates (folder: string): Promise<Record<string, 
     }))
   }
 
-  const resolveIncludes = (filepath: string) => {
+  const resolveIncludes = (filepath) => {
     let content = _cached[filepath]
     const found = content.match(reInclude)
     if (found) {
@@ -36,7 +42,8 @@ export async function resolveTemplates (folder: string): Promise<Record<string, 
 
   await loadTemplates(folder)
 
-  const templates: Record<string, string> = {}
+  /** @type {Record<string, string>} */
+  const templates = {}
   Object.keys(_cached).forEach(filepath => {
     const name = filepath.replace(resolve(folder) + '/', '')
     // exclude files whose name startswith _
@@ -44,6 +51,31 @@ export async function resolveTemplates (folder: string): Promise<Record<string, 
     if (/\.j2$/.test(name) && !/^[_.]/.test(name) && !/\//.test(name)) {
       templates[name] = resolveIncludes(filepath)
     }
+  })
+  return templates
+}
+
+/**
+ *
+ * @param {Record<string, string>} templates
+ * @param {Record<string, string>} context
+ * @returns {Record<string, string>}
+ */
+export function updateTemplatesContext (templates, context) {
+
+  /** @param {string} content */
+  const updateContext = (content) => {
+    Object.keys(context).forEach(key => {
+      if (/^_/.test(key)) {
+        const reVar = new RegExp('\\{\\{\\s*' + key + '\\s*\\}\\}', 'g')
+        content = content.replace(reVar, context[key])
+      }
+    })
+    return content
+  }
+
+  Object.keys(templates).forEach(key => {
+    templates[key] = updateContext(templates[key])
   })
   return templates
 }
