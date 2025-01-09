@@ -1,7 +1,7 @@
 import { resolve, dirname } from "path"
 import { readdir, readFile, lstat } from "fs/promises"
 
-const reInclude = new RegExp('{%\\s+include\\s+("|\')(\\./\\S+?)\\1\\s+%}', 'g')
+const reInclude = new RegExp('{%-?\\s+include\\s+("|\')(\\./\\S+?)\\1\\s+-?%}', 'g')
 
 
 /**
@@ -33,7 +33,7 @@ export async function resolveTemplates (folder) {
     const found = content.match(reInclude)
     if (found) {
       found.forEach(str => {
-        const name = str.replace(/^{%\s+include\s+("|')/, '').replace(/("|')\s+%}$/, '')
+        const name = str.replace(/^{%-?\s+include\s+("|')/, '').replace(/("|')\s+-?%}$/, '')
         content = content.replace(str, resolveIncludes(resolve(dirname(filepath), name)))
       })
     }
