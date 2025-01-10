@@ -30,6 +30,10 @@ export async function resolveTemplates (folder) {
 
   const resolveIncludes = (filepath) => {
     let content = _cached[filepath]
+    if (content === undefined) {
+      const filename = filepath.replace(resolve(folder) + '/', '')
+      throw new Error(`Template "${filename}" does not exist`)
+    }
     const found = content.match(reInclude)
     if (found) {
       found.forEach(str => {
