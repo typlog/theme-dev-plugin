@@ -14,7 +14,7 @@ export async function submitTheme (theme, token) {
     },
     body,
   })
-  return resp.json()
+  return resp
 }
 
 async function findReadme () {

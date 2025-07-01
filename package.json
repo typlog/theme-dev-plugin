@@ -1,18 +1,22 @@
 {
   "name": "@typlog/theme-dev-plugin",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Vite plugin for Typlog theme development.",
   "author": "Hsiaoming Yang <me@lepture.com>",
   "license": "MIT",
   "sideEffects": false,
+  "bin": {
+    "release-theme": "./bin/release-theme.mjs"
+  },
   "exports": {
     ".": "./src/index.mjs",
     "./vite": "./src/vite.mjs"
   },
   "module": "./src/index.mjs",
   "files": [
-    "src"
+    "src",
+    "bin"
   ],
   "scripts": {
     "test": "vitest run",
