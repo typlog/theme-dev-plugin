@@ -9,7 +9,7 @@ import { resolveTemplates, updateTemplatesContext } from "./templates.mjs"
  * @prop {string} repo
  * @prop {Record<string, string>} templates
  * @prop {Record<string, string>} [messages]
- * @prop {Record<string, any>} [variables]
+ * @prop {Record<string, any>[]} [config]
  * @prop {Record<string, any>} [context]
  */
 
