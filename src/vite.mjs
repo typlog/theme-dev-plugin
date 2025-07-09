@@ -1,12 +1,12 @@
 import colors from 'picocolors'
 import fetch from "node-fetch"
-import { parseThemeData } from './theme.mjs'
+import { parseDevThemeData } from './theme.mjs'
 
 const VITE_CLIENT = '<script type="module" src="/@vite/client"></script>'
 
 
 async function request (api, root, url) {
-  const theme = await parseThemeData(root)
+  const theme = await parseDevThemeData(root)
   const data = { url, theme }
   if (theme.context) {
     // for debugging context
