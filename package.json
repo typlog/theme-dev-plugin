@@ -1,7 +1,7 @@
 {
   "name": "@typlog/theme-dev-plugin",
   "type": "module",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Vite plugin for Typlog theme development.",
   "author": "Hsiaoming Yang <me@lepture.com>",
   "license": "MIT",
