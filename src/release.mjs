@@ -1,12 +1,11 @@
 import fetch from "node-fetch"
 import { readdir, readFile } from "fs/promises"
 
-const API_URL = process.env.THEME_SUBMIT_API || 'https://api.typlog.com/v4/theme/submit'
 
-export async function submitTheme (theme, token) {
+export async function submitTheme (url, token, theme) {
   const readme = await findReadme()
   const body = JSON.stringify({...theme, readme})
-  const resp = await fetch(API_URL, {
+  const resp = await fetch(url, {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${token}`,
