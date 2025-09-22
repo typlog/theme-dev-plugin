@@ -13,11 +13,15 @@ async function request (api, root, url) {
     data.override_context = theme.context
   }
   const body = JSON.stringify(data)
+  const headers = {
+    'Content-Type': 'application/json',
+  }
+  if (theme.preview_tenant_id) {
+    headers['X-Tenant-Id'] = theme.preview_tenant_id.toString()
+  }
   const resp = await fetch(api, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers,
     body,
   })
   return resp.json()
