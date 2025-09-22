@@ -9,8 +9,8 @@ async function release () {
   // load current directory's theme data
   const theme = await loadThemeData(process.cwd())
 
-  // use jsdelivr to host static files from GitHub
-  const staticURL = `https://cdn.jsdelivr.net/gh/${theme.repo}@${theme.version}/static`
+  // use GitHub releases files
+  const staticURL = `https://ui.typlog.com/gh/${theme.repo}/${theme.version}`
   updateTemplatesContext(theme.templates, {_static_url: staticURL})
 
   // send theme to api endpoint
