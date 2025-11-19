@@ -16,8 +16,8 @@ async function release () {
   // send theme to api endpoint
   const resp = await submitTheme(API_URL, API_TOKEN, theme)
   if (resp.status >= 400) {
-    const result = await resp.json()
     console.error(`[${resp.status}] ${resp.statusText}`)
+    const result = await resp.json()
     console.info(JSON.stringify(result, null, 2))
     process.exit(1)
   } else if (resp.status < 300) {
